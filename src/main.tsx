@@ -33,6 +33,7 @@ import {
 } from "./backend";
 import "./style.css";
 import { coversDate, lastDate, rangeError, timeOnDate } from "./date-range";
+import { weekSegments } from "./month-layout";
 import holidayData from "./holidays.json";
 const key = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -396,84 +397,135 @@ function App() {
                     ))}
                   </div>
                   <div className="month-grid">
-                    {days.map((d) => {
-                      const k = key(d);
-                      const events = shown.filter((e) => coversDate(e, k));
+                    {Array.from({ length: 6 }, (_, week) => {
+                      const dates = days.slice(week * 7, week * 7 + 7).map(key);
+                      const segments = weekSegments(shown, dates);
                       return (
-                        <div
-                          key={k}
-                          className={
-                            "day-cell " +
-                            (d.getMonth() !== date.getMonth() ? "muted " : "") +
-                            (k === selected ? "chosen " : "") +
-                            (k === today ? "is-today" : "")
-                          }
-                          onClick={() => selectDay(k)}
-                          onDoubleClick={() => {
-                            if (
-                              !window.matchMedia("(max-width: 700px)").matches
-                            )
-                              openEvent(undefined, k);
-                          }}
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                              e.preventDefault();
-                              selectDay(k);
-                            }
-                          }}
-                          aria-label={k}
-                        >
-                          <div className="day-number">
-                            <span
-                              className={
-                                d.getDay() === 0 || d.getDay() === 6
-                                  ? "weekend"
-                                  : ""
-                              }
-                            >
-                              {d.getDate()}
-                            </span>
-                            {k === today && <small>今天</small>}
+                        <div className="month-week" key={dates[0]}>
+                          {dates.map((k, column) => {
+                            const d = parse(k);
+                            const hidden = (limit: number) =>
+                              segments.filter(
+                                (s) =>
+                                  s.start <= column &&
+                                  s.end >= column &&
+                                  s.lane >= limit,
+                              ).length;
+                            return (
+                              <div
+                                key={k}
+                                className={
+                                  "day-cell " +
+                                  (d.getMonth() !== date.getMonth()
+                                    ? "muted "
+                                    : "") +
+                                  (k === selected ? "chosen " : "") +
+                                  (k === today ? "is-today" : "")
+                                }
+                                onClick={() => selectDay(k)}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={k}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    selectDay(k);
+                                  }
+                                }}
+                              >
+                                <div className="day-number">
+                                  <span
+                                    className={
+                                      d.getDay() === 0 || d.getDay() === 6
+                                        ? "weekend"
+                                        : ""
+                                    }
+                                  >
+                                    {d.getDate()}
+                                  </span>
+                                  {k === today && <small>今天</small>}
+                                </div>
+                                {holidays[k] && (
+                                  <div className="holiday" title={holidays[k]}>
+                                    {holidays[k]}
+                                  </div>
+                                )}
+                                {hidden(1) > 0 && (
+                                  <span className="month-more mobile-overflow">
+                                    +{hidden(1)}
+                                  </span>
+                                )}
+                                {hidden(3) > 0 && (
+                                  <span className="month-more desktop-overflow">
+                                    +{hidden(3)}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
+                          <div className="week-event-bars">
+                            {segments
+                              .filter((s) => s.lane < 3)
+                              .map((segment) => {
+                                const e = segment.event;
+                                return (
+                                  <button
+                                    key={e.id}
+                                    className={
+                                      "month-event-bar lane-" +
+                                      segment.lane +
+                                      (e.date < dates[0]
+                                        ? " continues-before"
+                                        : "") +
+                                      (lastDate(e) > dates[6]
+                                        ? " continues-after"
+                                        : "")
+                                    }
+                                    style={{
+                                      gridColumn: `${segment.start + 1} / ${segment.end + 2}`,
+                                      gridRow: segment.lane + 1,
+                                      background:
+                                        (cat(e.category)?.color || "#75b8de") +
+                                        "65",
+                                    }}
+                                    aria-label={`${e.title}，${e.date} 至 ${lastDate(e)}`}
+                                    onClick={(ev) => {
+                                      if (
+                                        window.matchMedia("(max-width: 700px)")
+                                          .matches
+                                      ) {
+                                        const rect =
+                                          ev.currentTarget.getBoundingClientRect();
+                                        const offset =
+                                          ev.detail === 0
+                                            ? 0
+                                            : Math.max(
+                                                0,
+                                                Math.min(
+                                                  segment.end - segment.start,
+                                                  Math.floor(
+                                                    ((ev.clientX - rect.left) /
+                                                      rect.width) *
+                                                      (segment.end -
+                                                        segment.start +
+                                                        1),
+                                                  ),
+                                                ),
+                                              );
+                                        selectDay(
+                                          dates[segment.start + offset],
+                                        );
+                                      } else openEvent(e);
+                                    }}
+                                  >
+                                    <span>
+                                      {e.allDay ? "全天　" : e.start + "　"}
+                                      {e.title}
+                                    </span>
+                                  </button>
+                                );
+                              })}
                           </div>
-                          {holidays[k] && (
-                            <div className="holiday">{holidays[k]}</div>
-                          )}
-                          {events.slice(0, 3).map((e) => (
-                            <button
-                              key={e.id}
-                              className="grid-event"
-                              style={{
-                                background: cat(e.category)?.color + "23",
-                                color: cat(e.category)?.color,
-                              }}
-                              onClick={(ev) => {
-                                ev.stopPropagation();
-                                if (
-                                  window.matchMedia("(max-width: 700px)")
-                                    .matches
-                                )
-                                  selectDay(k);
-                                else openEvent(e);
-                              }}
-                            >
-                              <i
-                                style={{ background: cat(e.category)?.color }}
-                              />
-                              <span>
-                                {e.date !== lastDate(e)
-                                  ? "↔ "
-                                  : !e.allDay && e.start + " "}
-                                {e.title}
-                              </span>
-                            </button>
-                          ))}
-                          {events.length > 3 && (
-                            <span className="more-events">
-                              +{events.length - 3} 個行程
-                            </span>
-                          )}
                         </div>
                       );
                     })}

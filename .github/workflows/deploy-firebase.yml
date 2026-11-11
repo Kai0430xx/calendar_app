@@ -25,7 +25,7 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
       - name: Check multi-day date logic
-        run: node --experimental-strip-types --test tests/date-range.test.mjs
+        run: node --experimental-strip-types --test tests/date-range.test.mjs tests/month-layout.test.mjs
       - name: Build calendar
         run: npm run build
       - name: Check deployment credential
