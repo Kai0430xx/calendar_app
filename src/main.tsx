@@ -532,7 +532,7 @@ function App() {
                 ) : (
                   <div className="empty-day">
                     <div className="cup">
-                      <img src="/couple-bears.svg" alt="兩隻小熊" />
+                      <img src="/poodle-smile.png" alt="微笑的棕色貴賓狗" />
                       <span>♡</span>
                     </div>
                     <b>沒有行程</b>

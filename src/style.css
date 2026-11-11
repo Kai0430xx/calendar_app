@@ -1842,3 +1842,7 @@ h1 > span {
     font-size: 14px;
   }
 }
+
+/* Keep the full poodle head visible at both layout sizes. */
+.cup img { width:112px; height:90px; object-fit:contain; }
+@media (max-width:700px) { .empty-day .cup img { width:96px; height:78px; } }
