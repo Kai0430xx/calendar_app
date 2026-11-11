@@ -32,6 +32,7 @@ import {
   type Category,
 } from "./backend";
 import "./style.css";
+import { coversDate, lastDate, rangeError, timeOnDate } from "./date-range";
 import holidayData from "./holidays.json";
 const key = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -88,7 +89,7 @@ function App() {
     (e) => !filter.length || filter.includes(e.category),
   );
   const dayEvents = shown
-    .filter((e) => e.date === selected)
+    .filter((e) => coversDate(e, selected))
     .sort((a, b) => a.start.localeCompare(b.start));
   useEffect(() => {
     if (!configured) return;
@@ -154,6 +155,7 @@ function App() {
         id: crypto.randomUUID(),
         title: "",
         date: day,
+        endDate: day,
         start: "09:00",
         end: "",
         allDay: false,
@@ -362,7 +364,7 @@ function App() {
                   <div className="month-grid">
                     {days.map((d) => {
                       const k = key(d);
-                      const events = shown.filter((e) => e.date === k);
+                      const events = shown.filter((e) => coversDate(e, k));
                       return (
                         <div
                           key={k}
@@ -413,7 +415,9 @@ function App() {
                                 style={{ background: cat(e.category)?.color }}
                               />
                               <span>
-                                {!e.allDay && e.start + " "}
+                                {e.date !== lastDate(e)
+                                  ? "↔ "
+                                  : !e.allDay && e.start + " "}
                                 {e.title}
                               </span>
                             </button>
@@ -434,7 +438,7 @@ function App() {
                 >
                   {(view === "週" ? weekDays : [date]).map((d) => {
                     const k = key(d);
-                    const entries = shown.filter((e) => e.date === k);
+                    const entries = shown.filter((e) => coversDate(e, k));
                     return (
                       <section
                         className={k === today ? "agenda-today" : ""}
@@ -457,11 +461,7 @@ function App() {
                             key={e.id}
                             onClick={() => openEvent(e)}
                           >
-                            <small>
-                              {e.allDay
-                                ? "全天"
-                                : e.start + (e.end ? " – " + e.end : "")}
-                            </small>
+                            <small>{timeOnDate(e, k)}</small>
                             <strong>{e.title}</strong>
                             <span>{cat(e.category)?.name}</span>
                           </button>
@@ -513,8 +513,7 @@ function App() {
                       onClick={() => openEvent(e)}
                     >
                       <div className="event-time">
-                        {e.allDay ? "全天" : e.start}
-                        <span>{e.end}</span>
+                        {timeOnDate(e, selected)}
                       </div>
                       <div
                         className="event-detail"
@@ -524,6 +523,11 @@ function App() {
                           {cat(e.category)?.name}
                         </span>
                         <b>{e.title}</b>
+                        {e.date !== lastDate(e) && (
+                          <p>
+                            {e.date} ～ {lastDate(e)}
+                          </p>
+                        )}
                         {e.notes && <p>{e.notes}</p>}
                       </div>
                       <ChevronRight size={14} />
@@ -621,8 +625,8 @@ function App() {
               <h2>
                 {modal === "event"
                   ? data.events.some((e) => e.id === edit?.id)
-                    ? "編輯小日子"
-                    : "新增小期待"
+                    ? "編輯行程"
+                    : "新增行程"
                   : modal === "categories"
                     ? "我們的行程分類"
                     : "設定與安裝"}
@@ -640,14 +644,15 @@ function App() {
               <form
                 onSubmit={async (ev) => {
                   ev.preventDefault();
-                  if (!edit.allDay && edit.end && edit.end <= edit.start) {
-                    setError("結束時間需晚於開始時間");
+                  const validationError = rangeError(edit);
+                  if (validationError) {
+                    setError(validationError);
                     return;
                   }
                   if (
                     await mutate(
                       "save_event",
-                      { event: edit },
+                      { event: { ...edit, endDate: lastDate(edit) } },
                       {
                         ...data,
                         events: [
@@ -668,7 +673,7 @@ function App() {
                     autoFocus
                     required
                     maxLength={100}
-                    placeholder="想一起做些什麼呢？"
+                    placeholder="行程標題"
                     value={edit.title}
                     onChange={(e) =>
                       setEdit({ ...edit, title: e.target.value })
@@ -676,12 +681,33 @@ function App() {
                   />
                 </label>
                 <label>
-                  日期
+                  開始日期
                   <input
                     required
                     type="date"
                     value={edit.date}
-                    onChange={(e) => setEdit({ ...edit, date: e.target.value })}
+                    onChange={(e) =>
+                      setEdit({
+                        ...edit,
+                        date: e.target.value,
+                        endDate:
+                          lastDate(edit) < e.target.value
+                            ? e.target.value
+                            : lastDate(edit),
+                      })
+                    }
+                  />
+                </label>
+                <label>
+                  結束日期
+                  <input
+                    required
+                    type="date"
+                    min={edit.date}
+                    value={lastDate(edit)}
+                    onChange={(e) =>
+                      setEdit({ ...edit, endDate: e.target.value })
+                    }
                   />
                 </label>
                 <label className="checkbox">

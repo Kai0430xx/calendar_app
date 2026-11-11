@@ -47,6 +47,7 @@ export type Entry = {
   id: string;
   title: string;
   date: string;
+  endDate?: string;
   start: string;
   end: string;
   allDay: boolean;

@@ -72,6 +72,9 @@ test("calendar rules isolate the shared account and validate writes", async (t) 
         for (const change of [
           { category: "missing" },
           { end: "17:00" },
+          { endDate: "2026-11-10" },
+          { endDate: 123 },
+          { endDate: "invalid" },
           { title: "" },
           { title: "x".repeat(101) },
           { notes: "x".repeat(2001) },
@@ -79,6 +82,32 @@ test("calendar rules isolate the shared account and validate writes", async (t) 
           { unexpected: true },
         ])
           await assertFails(setDoc(doc(db, path), { ...value, ...change }));
+      },
+    );
+    await t.test(
+      "cross-day events allow an earlier clock time and all-day ranges",
+      async () => {
+        await assertSucceeds(
+          setDoc(doc(db, path), {
+            ...value,
+            endDate: "2026-11-13",
+            end: "09:00",
+          }),
+        );
+        await assertSucceeds(
+          setDoc(doc(db, path), {
+            ...value,
+            endDate: "2026-11-13",
+            allDay: true,
+          }),
+        );
+        await assertFails(
+          setDoc(doc(db, path), {
+            ...value,
+            endDate: "2026-11-10",
+            allDay: true,
+          }),
+        );
       },
     );
     await t.test("member may update and delete", async () => {
