@@ -108,3 +108,9 @@ npm run test:firebase
 ## 跨日行程
 
 行程可設定開始／結束日期，結束日期包含當日。全天也可跨日；非全天行程的開始時間屬於第一天，選填結束時間屬於最後一天。月／週／日檢視皆顯示涵蓋日期。未設定 endDate 的舊資料視為單日。日期邏輯可執行 `node --experimental-strip-types --test tests/date-range.test.mjs`；Firestore 規則已補跨日測試，需模擬器環境才能執行。
+
+## 手機首頁與密碼
+
+手機首頁固定在可視高度內的日曆，點日期進入當日行程，再由左上角返回。停用瀏覽器 scroll restoration，pageshow 重設頁面位置，移除新增行程的自動聚焦，避免 iPhone 開啟鍵盤帶動畫面。每日清單可獨立捲動。此修改已通過建置，尚未完成 iPhone 實機檢查。
+
+共用密碼由 Firebase Authentication 管理。Firebase Console → Authentication → Users → 找到共用帳號 → 選單中的重設密碼／傳送密碼重設郵件，再由信箱中的連結設定新密碼。兩人之後皆使用新密碼；請勿把密碼提交到 GitHub。

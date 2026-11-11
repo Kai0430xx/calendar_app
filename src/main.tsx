@@ -66,6 +66,23 @@ function App() {
     };
   }, []);
 
+  const [dayPage, setDayPage] = useState(false);
+  useEffect(() => {
+    const resetScroll = () =>
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    history.scrollRestoration = "manual";
+    resetScroll();
+    window.addEventListener("pageshow", resetScroll);
+    return () => window.removeEventListener("pageshow", resetScroll);
+  }, []);
+  function selectDay(day: string) {
+    setSelected(day);
+    if (window.matchMedia("(max-width: 700px)").matches) {
+      setDayPage(true);
+      setMobileMenu(false);
+      window.scrollTo(0, 0);
+    }
+  }
   const [selected, setSelected] = useState(today);
   const [view, setView] = useState("月");
   const [modal, setModal] = useState<
@@ -182,7 +199,7 @@ function App() {
   });
   const cat = (id: string) => data.categories.find((c) => c.id === id);
   return (
-    <div className="app">
+    <div className={"app" + (dayPage ? " showing-day" : "")}>
       <aside
         inert={!!modal || (configured && !unlocked)}
         className={"sidebar " + (mobileMenu ? "open" : "")}
@@ -197,7 +214,10 @@ function App() {
         <p className="nav-label">日曆</p>
         <button
           className="nav-item active"
-          onClick={() => setMobileMenu(false)}
+          onClick={() => {
+            setMobileMenu(false);
+            setDayPage(false);
+          }}
         >
           <CalendarDays size={19} />
           共用日曆<span>♡</span>
@@ -253,7 +273,10 @@ function App() {
       {mobileMenu && (
         <div
           className="sidebar-backdrop"
-          onClick={() => setMobileMenu(false)}
+          onClick={() => {
+            setMobileMenu(false);
+            setDayPage(false);
+          }}
         />
       )}
       <main inert={!!modal || (configured && !unlocked)}>
@@ -261,13 +284,15 @@ function App() {
           <div className="breadcrumb">
             <button
               className="mobile-menu"
-              aria-label="開啟選單"
-              onClick={() => setMobileMenu(true)}
+              aria-label={dayPage ? "返回日曆" : "開啟選單"}
+              onClick={() =>
+                dayPage ? setDayPage(false) : setMobileMenu(true)
+              }
             >
-              <Menu size={20} />
+              {dayPage ? <ChevronLeft size={20} /> : <Menu size={20} />}
             </button>
 
-            <b>共用日曆</b>
+            <b>{dayPage ? "當日行程" : "共用日曆"}</b>
           </div>
 
           <button
@@ -374,12 +399,20 @@ function App() {
                             (k === selected ? "chosen " : "") +
                             (k === today ? "is-today" : "")
                           }
-                          onClick={() => setSelected(k)}
-                          onDoubleClick={() => openEvent(undefined, k)}
+                          onClick={() => selectDay(k)}
+                          onDoubleClick={() => {
+                            if (
+                              !window.matchMedia("(max-width: 700px)").matches
+                            )
+                              openEvent(undefined, k);
+                          }}
                           role="button"
                           tabIndex={0}
                           onKeyDown={(e) => {
-                            if (e.key === "Enter") setSelected(k);
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              selectDay(k);
+                            }
                           }}
                           aria-label={k}
                         >
@@ -408,7 +441,12 @@ function App() {
                               }}
                               onClick={(ev) => {
                                 ev.stopPropagation();
-                                openEvent(e);
+                                if (
+                                  window.matchMedia("(max-width: 700px)")
+                                    .matches
+                                )
+                                  selectDay(k);
+                                else openEvent(e);
                               }}
                             >
                               <i
@@ -446,7 +484,7 @@ function App() {
                       >
                         <button
                           className="agenda-date"
-                          onClick={() => setSelected(k)}
+                          onClick={() => selectDay(k)}
                         >
                           <span>週{weekdays[d.getDay()]}</span>
                           <b>{d.getDate()}</b>
@@ -670,7 +708,6 @@ function App() {
                 <label>
                   行程標題
                   <input
-                    autoFocus
                     required
                     maxLength={100}
                     placeholder="行程標題"
