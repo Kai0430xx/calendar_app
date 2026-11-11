@@ -425,7 +425,6 @@ function App() {
                                   (d.getMonth() !== date.getMonth()
                                     ? "muted "
                                     : "") +
-                                  (k === selected ? "chosen " : "") +
                                   (k === today ? "is-today" : "")
                                 }
                                 onClick={() => selectDay(k)}
