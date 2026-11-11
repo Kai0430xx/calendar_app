@@ -2047,3 +2047,80 @@ h1 > span {
     color: #326e95;
   }
 }
+
+/* Constrain native iOS date/time controls to the form's actual available width. */
+.modal {
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.modal form,
+.modal label,
+.modal .form-row,
+.modal-heading {
+  min-width: 0;
+  max-width: 100%;
+}
+.modal input:not([type="checkbox"]):not([type="color"]),
+.modal select,
+.modal textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+.modal input[type="date"],
+.modal input[type="time"] {
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 46px;
+  text-align: left;
+}
+.modal input::-webkit-date-and-time-value {
+  min-width: 0;
+  text-align: left;
+}
+.modal input::-webkit-datetime-edit {
+  min-width: 0;
+  padding: 0;
+}
+.modal textarea {
+  resize: vertical;
+}
+.modal-heading h2 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.modal-heading > button {
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .modal-overlay {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 10px max(10px, env(safe-area-inset-right)) 10px
+      max(10px, env(safe-area-inset-left));
+    overflow: hidden;
+  }
+  .modal {
+    width: 100%;
+    max-width: 440px;
+    min-width: 0;
+  }
+  .modal .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .modal .form-row label {
+    flex: none;
+    width: 100%;
+  }
+  .modal-actions {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
