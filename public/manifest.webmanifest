@@ -8,13 +8,13 @@
   "theme_color": "#f3f9fd",
   "icons": [
     {
-      "src": "/poodle-blue-calendar-192.png",
+      "src": "/calendar-poodle-date-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/poodle-blue-calendar-512.png",
+      "src": "/calendar-poodle-date-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
