@@ -1,0 +1,34 @@
+{
+  "name": "cream-calendar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "playwright test",
+    "format": "prettier --write src tests index.html *.ts *.json README.md",
+    "test:firebase": "node scripts/test-firebase.mjs",
+    "test:rules": "node --test tests/firestore-rules.mjs"
+  },
+  "dependencies": {
+    "firebase": "^11.3.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^4.0.1",
+    "@playwright/test": "^1.65.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "firebase-tools": "^15.35.0",
+    "prettier": "^3.9.10",
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
