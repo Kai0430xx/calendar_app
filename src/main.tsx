@@ -32,7 +32,13 @@ import {
   type Category,
 } from "./backend";
 import "./style.css";
-import { coversDate, lastDate, rangeError, timeOnDate } from "./date-range";
+import {
+  compareEvents,
+  coversDate,
+  lastDate,
+  rangeError,
+  timeOnDate,
+} from "./date-range";
 import { weekSegments } from "./month-layout";
 import holidayData from "./holidays.json";
 const key = (d: Date) =>
@@ -108,7 +114,7 @@ function App() {
   );
   const dayEvents = shown
     .filter((e) => coversDate(e, selected))
-    .sort((a, b) => a.start.localeCompare(b.start));
+    .sort(compareEvents);
   useEffect(() => {
     if (!configured) return;
     return observeAuth((ready) => {
@@ -518,10 +524,7 @@ function App() {
                                       } else openEvent(e);
                                     }}
                                   >
-                                    <span>
-                                      {e.allDay ? "全天　" : e.start + "　"}
-                                      {e.title}
-                                    </span>
+                                    <span>｜{e.title}</span>
                                   </button>
                                 );
                               })}
@@ -537,7 +540,9 @@ function App() {
                 >
                   {(view === "週" ? weekDays : [date]).map((d) => {
                     const k = key(d);
-                    const entries = shown.filter((e) => coversDate(e, k));
+                    const entries = shown
+                      .filter((e) => coversDate(e, k))
+                      .sort(compareEvents);
                     return (
                       <section
                         className={k === today ? "agenda-today" : ""}

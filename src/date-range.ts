@@ -27,3 +27,15 @@ export function timeOnDate(event: EventRange, day: string) {
   if (day === lastDate(event)) return event.end ? event.end + " 結束" : "跨日";
   return "跨日";
 }
+
+export function compareEvents(
+  a: EventRange & { id: string },
+  b: EventRange & { id: string },
+) {
+  return (
+    Number(b.allDay) - Number(a.allDay) ||
+    a.date.localeCompare(b.date) ||
+    (a.allDay ? 0 : a.start.localeCompare(b.start)) ||
+    a.id.localeCompare(b.id)
+  );
+}

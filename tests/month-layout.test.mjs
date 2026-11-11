@@ -26,3 +26,24 @@ test('single-day legacy events and adjacent ranges do not overlap',()=>{
 test('events outside visible week are omitted',()=>{
  assert.equal(weekSegments([event('old','2026-11-21'),event('future','2026-11-29')],dates).length,0);
 });
+
+test('all-day entries occupy top lanes, timed entries follow start time', () => {
+  const result = weekSegments([
+    { ...event('late', dates[2]), allDay: false, start: '18:00' },
+    { ...event('early', dates[2]), allDay: false, start: '08:00' },
+    { ...event('all', dates[2]), start: '23:00' },
+  ], dates);
+  assert.deepEqual(result.map(s => [s.event.id, s.lane]), [['all', 0], ['early', 1], ['late', 2]]);
+});
+test('priority-sorted intervals never share a lane on overlapping dates', () => {
+  const result = weekSegments([
+    event('all-later', dates[4], dates[5]),
+    { ...event('timed-long', dates[1], dates[6]), allDay: false },
+    { ...event('timed-early', dates[0]), allDay: false },
+  ], dates);
+  for (let i = 0; i < result.length; i++) for (let j = i + 1; j < result.length; j++) {
+    const a = result[i], b = result[j];
+    if (a.lane === b.lane) assert.ok(a.end < b.start || b.end < a.start);
+  }
+  assert.equal(result.find(s=>s.event.id==='all-later').lane, 0);
+});

@@ -1,4 +1,4 @@
-import { lastDate, type EventRange } from "./date-range.ts";
+import { compareEvents, lastDate, type EventRange } from "./date-range.ts";
 export function weekSegments<T extends EventRange & { id: string }>(
   events: T[],
   dates: string[],
@@ -17,17 +17,20 @@ export function weekSegments<T extends EventRange & { id: string }>(
       ),
       lane: 0,
     }))
-    .sort(
-      (a, b) =>
-        a.event.date.localeCompare(b.event.date) ||
-        b.end - a.end ||
-        a.event.id.localeCompare(b.event.id),
-    );
-  const occupied: number[] = [];
+    .sort((a, b) => compareEvents(a.event, b.event));
+  const occupied: { start: number; end: number }[][] = [];
   for (const segment of segments) {
-    let lane = occupied.findIndex((end) => end < segment.start);
-    if (lane < 0) lane = occupied.length;
-    occupied[lane] = segment.end;
+    let lane = occupied.findIndex((intervals) =>
+      intervals.every(
+        (interval) =>
+          interval.end < segment.start || interval.start > segment.end,
+      ),
+    );
+    if (lane < 0) {
+      lane = occupied.length;
+      occupied.push([]);
+    }
+    occupied[lane].push({ start: segment.start, end: segment.end });
     segment.lane = lane;
   }
   return segments;
