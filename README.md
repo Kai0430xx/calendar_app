@@ -1,6 +1,6 @@
 # 日子裡 · 我們的共用日曆
 
-為兩人設計的奶油手帳風手機日曆。React + TypeScript + Vite，Firebase Authentication（共用 Email/Password 帳號）、Firestore 即時監聽，Firebase Hosting 部署。無需 Cloud Functions 或付費方案。
+為兩人設計的圓潤卡通風手機日曆。React + TypeScript + Vite，Firebase Authentication（共用 Email/Password 帳號）、Firestore 即時監聽，Firebase Hosting 部署。無需 Cloud Functions 或付費方案。
 
 ## 已實作
 
@@ -100,3 +100,7 @@ npm run test:firebase
 - 正式 Firebase API 連線被環境網路政策以 HTTP 403 拒絕，尚未驗證正式登入與跨裝置同步。
 - Sites 預覽 relay 無法啟動，這次未完成手機瀏覽器視覺驗證。
 - 共用登入目前指定 `kai0430xx@gmail.com`，須在 Firebase Authentication 建立該 Email 的密碼使用者；僅啟用登入供應商並不會自動建立帳號。
+
+## 圓潤卡通介面更新
+
+改用淡紫與粉紅配色、圓角卡片與按鈕，移除裝飾標語及英文。手機月份與工具列分行顯示，週曆以七天直式清單呈現，表單輸入字級 16px，常用操作按鈕至少 44px 高。App 圖示保留暫用圖，等待使用者圖片。此更新 production build 通過；預覽 relay 啟動失敗，未完成瀏覽器與 iPhone 實機驗證。

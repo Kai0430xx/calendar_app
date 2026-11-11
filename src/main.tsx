@@ -17,7 +17,6 @@ import {
   Download,
   LogOut,
   Cloud,
-  Flower2,
 } from "lucide-react";
 import {
   configured,
@@ -191,21 +190,9 @@ function App() {
             <CalendarDays size={23} />
             <Heart size={10} fill="currentColor" />
           </div>
-          <span>
-            日子裡<small>OUR LITTLE DAYS</small>
-          </span>
+          <span>日子裡</span>
         </a>
-        <div className="space-card">
-          <span className="avatars">
-            ♡<span>♡</span>
-          </span>
-          <div>
-            <b>我們的小日子</b>
-            <small>兩個人，一起好好生活</small>
-          </div>
-          <span className="online-dot" />
-        </div>
-        <p className="nav-label">我們的手帳</p>
+        <p className="nav-label">日曆</p>
         <button
           className="nav-item active"
           onClick={() => setMobileMenu(false)}
@@ -245,15 +232,6 @@ function App() {
           管理分類
         </button>
         <div className="sidebar-bottom">
-          <div className="little-note">
-            <Flower2 size={29} />
-            <p>
-              平凡的日子，
-              <br />
-              因為有你而閃閃發光。
-            </p>
-            <span>make room for us</span>
-          </div>
           <button className="nav-item" onClick={() => setModal("settings")}>
             <SlidersHorizontal size={17} />
             設定與安裝
@@ -286,14 +264,13 @@ function App() {
             >
               <Menu size={20} />
             </button>
-            我們的手帳<span>/</span>
+
             <b>共用日曆</b>
           </div>
-          <span className="header-note">
-            把喜歡的日子，都放在一起 <Heart size={14} />
-          </span>
+
           <button
             className="avatar-button"
+            aria-label="設定與安裝"
             onClick={() => setModal("settings")}
           >
             ♡
@@ -302,11 +279,9 @@ function App() {
         <div className="content">
           <section className="page-title">
             <div>
-              <div className="eyebrow">A LITTLE PLAN, A LOT OF LOVE</div>
               <h1>
-                一起，把日子過成喜歡的樣子<span>✳</span>
+                日曆 <span aria-hidden="true">☁</span>
               </h1>
-              <p>記下每一次約會，也收藏每一個平凡的日常。</p>
             </div>
             <button className="primary add-desktop" onClick={() => openEvent()}>
               <Plus size={18} />
@@ -347,9 +322,6 @@ function App() {
                     <span>年</span> {date.getMonth() + 1}
                     <span>月</span>
                   </h2>
-                  <span className="english-month">
-                    {date.toLocaleString("en", { month: "long" }).toUpperCase()}
-                  </span>
                 </div>
                 <div className="calendar-controls">
                   <button className="today" onClick={() => setSelected(today)}>
@@ -367,6 +339,7 @@ function App() {
                         key={v}
                         onClick={() => setView(v)}
                         className={view === v ? "active" : ""}
+                        aria-pressed={view === v}
                       >
                         {v}
                       </button>
@@ -513,34 +486,22 @@ function App() {
                   <span className="holiday-dot" />
                   台灣國定假日 · 2026–2027
                 </span>
-                <span>
-                  小小計畫，大大期待 <Heart size={12} />
-                </span>
               </footer>
             </section>
             <aside className="day-panel">
-              <div className="day-panel-heading">
-                <span>TODAY'S LITTLE THINGS</span>
-                <Flower2 size={20} />
-              </div>
               <div className="selected-date">
                 <b>{date.getDate()}</b>
                 <div>
                   <strong>
                     {date.getMonth() + 1} 月 · 星期{weekdays[date.getDay()]}
                   </strong>
-                  <span>
-                    {selected === today
-                      ? "就是今天，好好生活"
-                      : "每一天都值得期待"}
-                  </span>
                 </div>
               </div>
               {holidays[selected] && (
                 <div className="holiday-pill">✧ {holidays[selected]}</div>
               )}
               <div className="daily-heading">
-                <h3>這一天的安排</h3>
+                <h3>行程</h3>
                 <span>{dayEvents.length} 個行程</span>
               </div>
               <div className="day-events">
@@ -571,39 +532,18 @@ function App() {
                 ) : (
                   <div className="empty-day">
                     <div className="cup">
-                      <img
-                        src="/couple-bears.svg"
-                        alt="兩隻一起收藏小日子的奶油小熊"
-                      />
+                      <img src="/couple-bears.svg" alt="兩隻小熊" />
                       <span>♡</span>
                     </div>
-                    <b>留點空白，也很好</b>
-                    <p>
-                      還沒有安排，
-                      <br />
-                      一起為今天加點小期待吧。
-                    </p>
+                    <b>沒有行程</b>
                   </div>
                 )}
               </div>
               <button className="add-day" onClick={() => openEvent()}>
                 <Plus size={16} />
-                為這一天新增行程
+                新增行程
               </button>
-              <div className="quote">
-                <span>“</span>
-                <p>
-                  最好的日子，
-                  <br />
-                  是有你參與的每一天。
-                </p>
-                <small>OUR DAYS, OUR WAY</small>
-                <Heart size={25} />
-              </div>
             </aside>
-          </div>
-          <div className="bottom-note">
-            <Heart size={13} /> 日子慢慢過，我們一起記。
           </div>
         </div>
         <button
@@ -634,8 +574,8 @@ function App() {
             <div className="login-icon">
               <LockKeyhole />
             </div>
-            <h2>回到我們的小日子</h2>
-            <p>輸入兩人共用的密碼，打開我們的日曆。</p>
+            <h2>共用日曆</h2>
+            <p>輸入共用密碼</p>
             <label>
               共同密碼
               <input
@@ -800,7 +740,7 @@ function App() {
                   <textarea
                     maxLength={2000}
                     rows={3}
-                    placeholder="寫下地點、想法，或給彼此的小提醒…"
+                    placeholder="備註（選填）"
                     value={edit.notes}
                     onChange={(e) =>
                       setEdit({ ...edit, notes: e.target.value })
@@ -843,9 +783,6 @@ function App() {
             )}
             {modal === "categories" && (
               <>
-                <p className="modal-description">
-                  用喜歡的顏色，整理我們的每一種日常。
-                </p>
                 <div className="category-editor">
                   {data.categories.map((c) => (
                     <CategoryRow
@@ -939,7 +876,7 @@ function App() {
                     <b>{configured ? "兩人共用同步" : "此裝置體驗模式"}</b>
                     <p>
                       {configured
-                        ? "變更會透過 Firebase Firestore 即時同步到兩人的手機。"
+                        ? "兩支手機即時同步。"
                         : "目前資料只保存在這個瀏覽器。需設定 Firebase 才能跨手機共用，詳細步驟請見專案 README。"}
                     </p>
                   </div>
