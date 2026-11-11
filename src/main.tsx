@@ -240,15 +240,24 @@ function App() {
                 )
               }
               className={filter.includes(c.id) ? "selected-filter" : ""}
+              aria-pressed={filter.includes(c.id)}
             >
               <span className="color-dot" style={{ background: c.color }} />
               {c.name}
+              {filter.includes(c.id) && (
+                <Check className="filter-check" size={16} aria-hidden="true" />
+              )}
               <span className="category-count">
                 {data.events.filter((e) => e.category === c.id).length}
               </span>
             </button>
           ))}
         </div>
+        {filter.length > 0 && (
+          <button className="clear-filter" onClick={() => setFilter([])}>
+            顯示全部
+          </button>
+        )}
         <button className="manage" onClick={() => setModal("categories")}>
           <SlidersHorizontal size={14} />
           管理分類

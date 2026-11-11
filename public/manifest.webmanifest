@@ -4,17 +4,17 @@
   "lang": "zh-TW",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f5f6ff",
-  "theme_color": "#f5f6ff",
+  "background_color": "#f3f9fd",
+  "theme_color": "#f3f9fd",
   "icons": [
     {
-      "src": "/poodle-calendar-192.png",
+      "src": "/poodle-blue-calendar-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/poodle-calendar-512.png",
+      "src": "/poodle-blue-calendar-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"

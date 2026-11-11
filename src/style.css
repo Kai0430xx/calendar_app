@@ -1,7 +1,7 @@
 :root {
   font-family: "Noto Sans TC", "PingFang TC", sans-serif;
-  color: #3e4566;
-  background: #f5f6ff;
+  color: #3e5566;
+  background: #f3f9fd;
   font-size: 14px;
 }
 * {
@@ -44,7 +44,7 @@ textarea {
   background: #ffffff;
   border-radius: 9px;
   padding: 11px;
-  color: #3e4566;
+  color: #3e5566;
 }
 input:focus,
 textarea:focus,
@@ -62,7 +62,7 @@ button:hover {
   width: 238px;
   position: fixed;
   inset: 0 auto 0 0;
-  background: #eef0ff;
+  background: #eef8ff;
   border-right: 1px solid #e8e4d9;
   padding: 36px 22px 18px;
   display: flex;
@@ -91,7 +91,7 @@ button:hover {
 }
 .brand-icon {
   position: relative;
-  background: #8272dc;
+  background: #397fac;
   border-radius: 12px;
   padding: 10px;
   color: #fffbed;
@@ -101,7 +101,7 @@ button:hover {
   position: absolute;
   bottom: 8px;
   right: 8px;
-  background: #8272dc;
+  background: #397fac;
 }
 .space-card {
   display: flex;
@@ -174,8 +174,8 @@ button:hover {
   border-radius: 9px;
 }
 .nav-item.active {
-  background: #e4deff;
-  color: #6854b7;
+  background: #def1ff;
+  color: #326c91;
 }
 .nav-item > span,
 .nav-item > svg:last-child:not(:first-child) {
@@ -344,7 +344,7 @@ h1 > span {
   margin-top: 10px;
 }
 .primary {
-  background: #8272dc;
+  background: #397fac;
   color: #fffdf4;
   border-radius: 8px;
   padding: 12px 18px;
@@ -358,10 +358,10 @@ h1 > span {
 }
 .calendar-card {
   background: #ffffff;
-  border: 1px solid #dce0f2;
+  border: 1px solid #dce9f2;
   border-radius: 13px;
   overflow: hidden;
-  box-shadow: 0 4px 18px #3e456603;
+  box-shadow: 0 4px 18px #3e556603;
 }
 .calendar-toolbar {
   display: flex;
@@ -408,7 +408,7 @@ h1 > span {
 }
 .view-tabs {
   display: flex;
-  background: #edf0fb;
+  background: #edf5fb;
   border-radius: 6px;
   padding: 3px;
   margin-left: 8px;
@@ -427,7 +427,7 @@ h1 > span {
 .weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  background: #f7f8ff;
+  background: #f7fcff;
   border-top: 1px solid #eeeae1;
   border-bottom: 1px solid #eeeae1;
   text-align: center;
@@ -436,7 +436,7 @@ h1 > span {
   color: #969180;
 }
 .weekend {
-  color: #cf6486;
+  color: #4a85ac;
 }
 .month-grid {
   display: grid;
@@ -444,8 +444,8 @@ h1 > span {
 }
 .day-cell {
   min-height: 102px;
-  border-right: 1px solid #edf0f9;
-  border-bottom: 1px solid #edf0f9;
+  border-right: 1px solid #edf4f9;
+  border-bottom: 1px solid #edf4f9;
   padding: 10px 5px 5px;
   cursor: pointer;
   position: relative;
@@ -460,8 +460,8 @@ h1 > span {
   background: #f8f7ef;
 }
 .day-cell.chosen {
-  background: #f0edff;
-  box-shadow: inset 0 0 0 1px #b6a7f3;
+  background: #edf8ff;
+  box-shadow: inset 0 0 0 1px #a4cee9;
 }
 .day-number {
   display: flex;
@@ -479,7 +479,7 @@ h1 > span {
   color: #7c8c66;
 }
 .is-today .day-number > span {
-  background: #8272dc;
+  background: #397fac;
   color: #fff;
   border-radius: 50%;
   height: 24px;
@@ -496,7 +496,7 @@ h1 > span {
 }
 .holiday {
   font-size: 9px;
-  color: #b84d74;
+  color: #39749b;
   margin: 3px 3px 5px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -549,7 +549,7 @@ h1 > span {
   background: #cc9d8a;
 }
 .day-panel {
-  border: 1px solid #dce0f2;
+  border: 1px solid #dce9f2;
   background: #ffffff;
   border-radius: 12px;
   padding: 23px 19px;
@@ -578,7 +578,7 @@ h1 > span {
   font:
     50px Georgia,
     serif;
-  color: #7862c6;
+  color: #367aa6;
 }
 .selected-date strong {
   font-size: 11px;
@@ -779,7 +779,7 @@ h1 > span {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  background: #f0edff;
+  background: #edf8ff;
   border-left: 3px solid;
   border-radius: 5px;
   padding: 10px 7px;
@@ -864,7 +864,7 @@ h1 > span {
 .checkbox input {
   width: 16px;
   height: 16px;
-  accent-color: #8272dc;
+  accent-color: #397fac;
 }
 .form-row {
   display: flex;
@@ -1244,7 +1244,7 @@ h1 > span {
     height: 52px;
     width: 52px;
     display: flex;
-    background: #8272dc;
+    background: #397fac;
     border: 3px solid #fffdf4;
     border-radius: 18px;
     box-shadow: 0 4px 18px #59654833;
@@ -1323,8 +1323,8 @@ h1 > span {
 :root {
   font-family:
     "Arial Rounded MT Bold", "PingFang TC", "Microsoft JhengHei", sans-serif;
-  color: #3e4566;
-  background: #f5f6ff;
+  color: #3e5566;
+  background: #f3f9fd;
 }
 button {
   touch-action: manipulation;
@@ -1334,22 +1334,22 @@ input,
 select,
 textarea {
   font-size: 16px;
-  border: 2px solid #e1e4f4;
+  border: 2px solid #e1ecf4;
   border-radius: 16px;
   background: #fff;
-  color: #3e4566;
+  color: #3e5566;
 }
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 2px solid #b6a7f3;
+  outline: 2px solid #a4cee9;
 }
 .sidebar {
   border: 0;
   padding-top: 28px;
 }
 .brand {
-  color: #6555a4;
+  color: #326c91;
   padding: 0 10px 30px;
 }
 .brand > span {
@@ -1361,11 +1361,11 @@ select:focus {
 .brand-icon {
   border-radius: 17px;
   transform: none;
-  box-shadow: 0 4px 0 #6657b7;
+  box-shadow: 0 4px 0 #578fb7;
 }
 .nav-label {
   font-size: 12px;
-  color: #6e7391;
+  color: #6e8291;
   letter-spacing: 0;
 }
 .nav-item {
@@ -1379,7 +1379,7 @@ select:focus {
   border-radius: 15px;
 }
 .category-count {
-  color: #71758e;
+  color: #71828e;
   font-size: 12px;
 }
 .color-dot {
@@ -1390,33 +1390,33 @@ select:focus {
 .manage {
   min-height: 44px;
   font-size: 13px;
-  color: #655b8c;
+  color: #426e8b;
 }
 .sidebar-bottom {
   padding-top: 20px;
 }
 .sync {
   font-size: 12px;
-  color: #6e7391;
-  border-color: #dce0f2;
+  color: #6e8291;
+  border-color: #dce9f2;
 }
 .topbar {
   height: 64px;
   background: #fff;
   padding: 0 32px;
-  border-color: #e6e9f7;
+  border-color: #e6f0f7;
 }
 .breadcrumb {
   font-size: 16px;
-  color: #3e4566;
+  color: #3e5566;
 }
 .breadcrumb b {
   font-weight: 700;
   color: inherit;
 }
 .avatar-button {
-  background: #ffe3ed;
-  color: #b84d74;
+  background: #e0f1fc;
+  color: #39749b;
   width: 44px;
   height: 44px;
   border: 0;
@@ -1436,7 +1436,7 @@ h1 {
   font-size: 25px;
 }
 h1 > span {
-  color: #a69ae8;
+  color: #9bc6e2;
   font-size: 32px;
   margin-left: 6px;
 }
@@ -1448,14 +1448,14 @@ h1 > span {
   min-height: 46px;
   font-size: 14px;
   font-weight: 700;
-  box-shadow: 0 4px 0 #6858b7;
+  box-shadow: 0 4px 0 #2d668d;
   padding: 12px 20px;
 }
 .calendar-card,
 .day-panel {
-  border: 2px solid #e0e4f5;
+  border: 2px solid #e0ecf5;
   border-radius: 25px;
-  box-shadow: 0 5px 0 #e8eaf8;
+  box-shadow: 0 5px 0 #e8f1f8;
 }
 .calendar-toolbar {
   padding: 18px;
@@ -1466,7 +1466,7 @@ h1 > span {
   font-size: 23px;
 }
 .month-heading h2 span {
-  color: #656b89;
+  color: #657a89;
   font-size: 14px;
 }
 .calendar-controls {
@@ -1476,7 +1476,7 @@ h1 > span {
   min-width: 44px;
   min-height: 44px;
   border-radius: 14px;
-  background: #f0f2fc;
+  background: #f0f7fc;
 }
 .calendar-controls .today {
   font-size: 13px;
@@ -1498,36 +1498,36 @@ h1 > span {
 }
 .view-tabs button.active {
   border-radius: 12px;
-  background: #8272dc;
+  background: #397fac;
   color: white;
-  box-shadow: 0 2px 0 #6858b7;
+  box-shadow: 0 2px 0 #2d668d;
 }
 .weekdays {
   font-size: 12px;
   font-weight: 700;
   padding: 13px 0;
-  border-color: #edf0f9;
-  color: #6e7391;
+  border-color: #edf4f9;
+  color: #6e8291;
 }
 .day-cell {
   min-height: 100px;
 }
 .day-cell.chosen {
-  box-shadow: inset 0 0 0 2px #b6a7f3;
+  box-shadow: inset 0 0 0 2px #a4cee9;
   border-radius: 12px;
 }
 .day-cell:hover {
-  background: #f4f1ff;
+  background: #f1f9ff;
 }
 .day-number > span {
   font-size: 14px;
   font-weight: 700;
 }
 .day-number small {
-  color: #7862c6;
+  color: #367aa6;
 }
 .muted {
-  background: #fafbff;
+  background: #fafdff;
 }
 .is-today .day-number > span {
   width: 27px;
@@ -1544,12 +1544,12 @@ h1 > span {
 }
 .more-events {
   font-size: 10px;
-  color: #686f8c;
+  color: #687d8c;
 }
 .calendar-footer {
   font-size: 11px;
   padding: 14px 16px;
-  color: #737893;
+  color: #738693;
 }
 .day-panel {
   padding: 22px;
@@ -1568,7 +1568,7 @@ h1 > span {
   font-weight: 700;
 }
 .daily-heading {
-  border-top: 1px solid #e6e9f7;
+  border-top: 1px solid #e6f0f7;
   padding-top: 16px;
 }
 .daily-heading h3 {
@@ -1577,27 +1577,27 @@ h1 > span {
 }
 .daily-heading > span {
   font-size: 12px;
-  color: #737893;
+  color: #738693;
 }
 .empty-day {
   padding: 25px 0;
 }
 .empty-day b {
   font-size: 14px;
-  color: #737893;
+  color: #738693;
   margin-top: 10px;
 }
 .add-day {
-  border: 2px solid #ded7f8;
-  background: #f4f0ff;
+  border: 2px solid #d7eaf8;
+  background: #f0f9ff;
   border-radius: 16px;
-  color: #705ab8;
+  color: #367aa6;
   font-size: 14px;
   min-height: 46px;
 }
 .event-time {
   font-size: 13px;
-  color: #626b8b;
+  color: #627a8b;
 }
 .event-time span {
   font-size: 12px;
@@ -1628,23 +1628,23 @@ h1 > span {
   font-size: 12px;
 }
 .agenda-add {
-  border: 2px solid #e1dcf5;
+  border: 2px solid #dcebf5;
   border-radius: 14px;
   min-height: 44px;
 }
 .modal-overlay {
-  background: #34375866;
+  background: #34495866;
 }
 .modal {
-  border: 2px solid #e0e4f5;
+  border: 2px solid #e0ecf5;
   border-radius: 28px;
-  box-shadow: 0 12px 0 #3e45661a;
+  box-shadow: 0 12px 0 #3e55661a;
   padding: 24px;
 }
 .modal-heading > button {
   width: 44px;
   height: 44px;
-  background: #eef0fb;
+  background: #eef6fb;
   border-radius: 16px;
 }
 .modal label {
@@ -1664,12 +1664,12 @@ h1 > span {
   min-height: 44px;
 }
 .login-icon {
-  background: #eee9ff;
-  color: #8272dc;
+  background: #e9f6ff;
+  color: #397fac;
   border-radius: 24px;
 }
 .login-modal p {
-  color: #737893;
+  color: #738693;
   font-size: 14px;
 }
 .secondary {
@@ -1678,8 +1678,8 @@ h1 > span {
   font-size: 14px;
 }
 .holiday-pill {
-  background: #ffe9f0;
-  color: #b84d74;
+  background: #e6f3fc;
+  color: #39749b;
   border-radius: 12px;
   font-size: 12px;
 }
@@ -1693,7 +1693,7 @@ h1 > span {
   .mobile-menu {
     width: 44px;
     height: 44px;
-    background: #f0f2fc;
+    background: #f0f7fc;
     border-radius: 16px;
   }
   .content {
@@ -1779,14 +1779,14 @@ h1 > span {
     font-size: 14px;
   }
   .floating-add {
-    background: #8272dc;
+    background: #397fac;
     border: 3px solid white;
     border-radius: 23px;
     width: 58px;
     height: 58px;
     box-shadow:
-      0 5px 0 #6858b7,
-      0 8px 20px #8272dc40;
+      0 5px 0 #2d668d,
+      0 8px 20px #397fac40;
   }
   .floating-add svg {
     width: 28px;
@@ -1819,7 +1819,7 @@ h1 > span {
     align-items: start;
     column-gap: 8px;
     border-radius: 17px;
-    border: 1px solid #e6e9f7;
+    border: 1px solid #e6f0f7;
     padding: 12px 8px;
   }
   .weekly .agenda-date {
@@ -1961,5 +1961,89 @@ h1 > span {
     padding-top: calc(24px + env(safe-area-inset-top));
     padding-bottom: calc(18px + env(safe-area-inset-bottom));
     overflow-y: auto;
+  }
+}
+
+.category-list .selected-filter {
+  background: #dceefa;
+  color: #285f83;
+  box-shadow: inset 0 0 0 1px #a9cee8;
+}
+.filter-check {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.filter-check + .category-count {
+  margin-left: 0;
+}
+.clear-filter {
+  min-height: 44px;
+  font-size: 13px;
+  color: #36749e;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 8px 14px;
+}
+@media (max-width: 700px) {
+  .showing-day .content {
+    padding: 0;
+    width: 100%;
+  }
+  .showing-day .calendar-layout {
+    width: 100%;
+    gap: 0;
+  }
+  .showing-day .day-panel {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 20px 16px calc(24px + env(safe-area-inset-bottom));
+    background: #f3f9fd;
+  }
+  .showing-day .day-events {
+    display: block;
+    width: 100%;
+  }
+  .showing-day .event-item {
+    display: flex;
+    width: 100%;
+    max-width: none;
+    margin: 12px 0;
+    padding: 16px 12px;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #d9eaf6;
+    border-radius: 18px;
+  }
+  .showing-day .event-time {
+    flex: 0 0 76px;
+    min-width: 0;
+    max-width: 76px;
+    font-size: 13px;
+  }
+  .showing-day .event-detail {
+    flex: 1;
+    min-width: 0;
+  }
+  .showing-day .event-detail b {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .showing-day .event-detail p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .showing-day .empty-day {
+    width: 100%;
+    padding: 48px 0;
+  }
+  .showing-day .add-day {
+    width: 100%;
+    background: #e1f0fa;
+    border-color: #b9d9ed;
+    color: #326e95;
   }
 }
